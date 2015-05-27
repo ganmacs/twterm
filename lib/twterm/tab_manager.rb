@@ -81,10 +81,10 @@ module Twterm
     end
 
     def recover_tabs
-      return unless File.exist? DUMPED_TABS_FILE
+      return unless exist_tabs_cache_file?
 
-      data = YAML.load(File.read(DUMPED_TABS_FILE))
-      data.each do |klass, title, arg|
+      tabs_data = load_tabs_cache_file
+      tabs_data.each do |klass, title, arg|
         tab = klass.recover(title, arg)
         add(tab)
       end
@@ -136,6 +136,14 @@ module Twterm
         return false
       end
       true
+    end
+
+    def load_tabs_cache_file
+      @cache_file ||= YAML.load_file(DUMPED_TABS_FILE)
+    end
+
+    def exist_tabs_cache_file?
+      File.exist? DUMPED_TABS_FILE
     end
   end
 end
