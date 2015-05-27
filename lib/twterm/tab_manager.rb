@@ -5,8 +5,8 @@ module Twterm
 
     DUMPED_TABS_FILE = "#{ENV['HOME']}/.twterm/dumped_tabs"
 
-    def initialize
-      @tabs = []
+    def initialize(*tabs)
+      @tabs = tabs
       @index = 0
       @history = []
 
